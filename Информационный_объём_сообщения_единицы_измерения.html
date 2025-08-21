@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Информационный объём сообщения — сценарий и конспект</title>
+    <meta name="description" content="Сценарий видеоурока (7–11 минут) и конспект по теме: информационный объём сообщения, единицы измерения информации, задачи с решениями." />
+    <style>
+      :root {
+        --bg: #0f172a;
+        --panel: #111827;
+        --muted: #9ca3af;
+        --text: #e5e7eb;
+        --accent: #60a5fa;
+        --accent-2: #34d399;
+        --danger: #f87171;
+        --card: #111827;
+        --card-border: #1f2937;
+        --code-bg: #0b1220;
+        --kbd-bg: #0b1220;
+      }
+
+      [data-theme="light"] {
+        --bg: #f8fafc;
+        --panel: #ffffff;
+        --muted: #475569;
+        --text: #0f172a;
+        --accent: #2563eb;
+        --accent-2: #059669;
+        --danger: #dc2626;
+        --card: #ffffff;
+        --card-border: #e5e7eb;
+        --code-bg: #f1f5f9;
+        --kbd-bg: #e2e8f0;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { height: 100%; }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        background: radial-gradient(1200px 800px at 10% -10%, rgba(96,165,250,.08), transparent 60%),
+                    radial-gradient(1000px 600px at 110% 10%, rgba(52,211,153,.08), transparent 60%),
+                    var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        color-scheme: dark;
+      }
+
+      [data-theme="light"] body {
+        background: radial-gradient(1200px 800px at 10% -10%, rgba(37,99,235,.07), transparent 60%),
+                    radial-gradient(1000px 600px at 110% 10%, rgba(5,150,105,.07), transparent 60%),
+                    var(--bg);
+        color-scheme: light;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+
+      header.hero {
+        display: grid;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        background: rgba(96,165,250,.12);
+        color: var(--accent);
+        border: 1px solid rgba(96,165,250,.3);
+        border-radius: 999px;
+        font-size: 12px;
+        letter-spacing: .02em;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 32px;
+        line-height: 1.2;
+        letter-spacing: .2px;
+      }
+
+      .subtitle {
+        color: var(--muted);
+        max-width: 70ch;
+        margin: 0;
+      }
+
+      nav.toc {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 10px;
+        margin: 20px 0 28px;
+      }
+
+      .toolbar {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        align-items: center;
+        margin: 6px 0 12px;
+      }
+
+      .btn {
+        appearance: none;
+        border: 1px solid var(--card-border);
+        background: rgba(255,255,255,.04);
+        color: var(--text);
+        padding: 8px 12px;
+        border-radius: 10px;
+        cursor: pointer;
+        font: inherit;
+        transition: transform .12s ease, background .2s ease, border-color .2s ease, color .2s ease;
+      }
+      .btn:hover { transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(96,165,250,.35); }
+      .btn-primary { border-color: rgba(96,165,250,.45); color: var(--accent); }
+      .btn-ghost { background: transparent; }
+
+      .toc a {
+        display: block;
+        padding: 10px 12px;
+        background: rgba(255,255,255,.02);
+        border: 1px solid var(--card-border);
+        border-radius: 10px;
+        color: var(--text);
+        text-decoration: none;
+        transition: transform .12s ease, background .2s ease, border-color .2s ease;
+      }
+      .toc a:hover { transform: translateY(-1px); background: rgba(255,255,255,.04); border-color: rgba(96,165,250,.3); }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      @media (min-width: 900px) {
+        .grid.two {
+          grid-template-columns: 1.2fr .8fr;
+        }
+      }
+
+      section { scroll-margin-top: 80px; }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        padding: 18px;
+      }
+
+      h2, h3 { margin: 0 0 10px; }
+      h2 { font-size: 22px; border-left: 4px solid var(--accent); padding-left: 10px; }
+      h3 { font-size: 16px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+
+      ul { margin: 10px 0 0; padding-left: 20px; }
+      li { margin: 6px 0; }
+
+      .timeline li { margin: 8px 0; }
+
+      .pill {
+        display: inline-block;
+        padding: 2px 8px;
+        margin-right: 6px;
+        border-radius: 999px;
+        font-size: 12px;
+        background: rgba(52,211,153,.12);
+        color: var(--accent-2);
+        border: 1px solid rgba(52,211,153,.35);
+      }
+
+      .note {
+        padding: 10px 12px;
+        background: rgba(96,165,250,.08);
+        border: 1px dashed rgba(96,165,250,.35);
+        border-radius: 10px;
+        color: var(--text);
+        font-size: 14px;
+      }
+
+      .formula, code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        background: var(--code-bg);
+        border: 1px solid #0f203a;
+        border-radius: 8px;
+        padding: 2px 6px;
+        font-size: 14px;
+        color: #c7d2fe;
+      }
+
+      .examples-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 12px;
+      }
+
+      .tag { color: var(--muted); font-size: 13px; }
+
+      footer { margin: 24px 0 8px; color: var(--muted); font-size: 12px; text-align: center; }
+
+      /* Print */
+      @media print {
+        body { background: #ffffff; color: #000; }
+        .badge, .toc { display: none; }
+        .toolbar { display: none; }
+        .card { border-color: #ddd; }
+        .formula, code { background: #f7f7f7; color: #111; border-color: #eee; }
+        h2 { border-left-color: #444; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="hero">
+        <span class="badge">Сценарий видео 7–11 минут</span>
+        <h1>Информационный объём сообщения. Единицы измерения информации</h1>
+        <p class="subtitle">Готовый сценарий с таймингами, конспект, задачи на закрепление с подробными решениями, мини-викторина и ДЗ с ответами.</p>
+      </header>
+
+      <div class="toolbar" role="toolbar" aria-label="Быстрые действия">
+        <button id="themeToggle" class="btn btn-primary" type="button" aria-pressed="false" aria-label="Переключить тему">Светлая тема</button>
+        <button id="printBtn" class="btn btn-ghost" type="button" aria-label="Печать">Печать</button>
+      </div>
+
+      <nav class="toc card" aria-label="Содержание">
+        <a href="#goals">Цели</a>
+        <a href="#script">Сценарий</a>
+        <a href="#examples">Быстрые примеры</a>
+        <a href="#tasks">Задачи с решениями</a>
+        <a href="#quiz">Мини‑викторина</a>
+        <a href="#summary">Конспект</a>
+        <a href="#homework">Домашнее задание</a>
+        <a href="#visuals">Визуальные подсказки</a>
+      </nav>
+
+      <main class="grid two">
+        <section id="goals" class="card">
+          <h2>Цели урока</h2>
+          <ul>
+            <li>Понять, что такое информационный объём и как его измерять.</li>
+            <li>Переводить между битами/байтами и приставками SI/IEC.</li>
+            <li>Рассчитывать объём сообщения по алфавиту и числу символов.</li>
+            <li>Закрепить на задачах с подробными решениями.</li>
+          </ul>
+        </section>
+
+        <section id="script" class="card">
+          <h2>Сценарий видео (7–11 минут)</h2>
+          <ul class="timeline">
+            <li>
+              <span class="pill">0:00–0:30</span>
+              Вступление — «Сколько “весит” фотография или текст и отчего это зависит? Сегодня разберёмся с единицами объёма информации и научимся быстро считать размер данных.»
+            </li>
+            <li>
+              <span class="pill">0:30–2:30</span>
+              Единицы измерения
+              <ul>
+                <li>Бит (b) — базовая единица. 1 байт (B) = 8 бит.</li>
+                <li>SI: 1 kB = 1000 B, 1 MB = 1000 kB, 1 GB = 1000 MB.</li>
+                <li>IEC: 1 KiB = 1024 B, 1 MiB = 1024 KiB, 1 GiB = 1024 MiB.</li>
+                <li class="note">В задачах уточняйте, какие приставки требуются: <strong>kB/MB (10<sup>3</sup>)</strong> или <strong>KiB/MiB (2<sup>10</sup>)</strong>.</li>
+              </ul>
+            </li>
+            <li>
+              <span class="pill">2:30–4:00</span>
+              Объём сообщения и кодирование символов
+              <ul>
+                <li>Минимум бит на символ: <span class="formula">m = ⌈log<sub>2</sub> N⌉</span>.</li>
+                <li>Вес символа (Хартли): <span class="formula">i = log<sub>2</sub> N</span> бит/символ (равновероятные символы).</li>
+                <li>Объём сообщения из <em>k</em> символов: <span class="formula">I = k × i</span> (бит). На практике используем целое число бит <span class="formula">m</span>.</li>
+                <li>Перевод в байты: <span class="formula">B = I / 8</span>.</li>
+              </ul>
+            </li>
+            <li>
+              <span class="pill">4:00–6:00</span>
+              Быстрые примеры (в эфире решаем устно)
+              <div class="examples-grid" id="examples">
+                <div class="card">
+                  <h3>Пример 1: Текст (ASCII)</h3>
+                  <div class="tag">256 символов → 8 бит/символ</div>
+                  <p>Текст 1000 символов: <span class="formula">1000 × 8 = 8000</span> бит = 1000 B ≈ 1 kB (SI).</p>
+                </div>
+                <div class="card">
+                  <h3>Пример 2: Изображение (без сжатия)</h3>
+                  <div class="tag">640×480, 24 бита/пикс</div>
+                  <p><span class="formula">640 × 480 × 24 = 7 372 800</span> бит = 921 600 B ≈ 900 KiB ≈ 0.88 MiB ≈ 0.92 MB.</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <section id="tasks" class="card">
+          <h2>Закрепление: задачи с подробными решениями</h2>
+          <ol>
+            <li>
+              <p><strong>Алфавит и длина сообщения</strong></p>
+              <p><em>Условие:</em> алфавит содержит 50 символов, сообщение длиной 180 символов. Найти объём в байтах.</p>
+              <p><em>Решение:</em> <span class="formula">m = ⌈log<sub>2</sub> 50⌉ = 6</span> бит/символ; <span class="formula">I = 180 × 6 = 1080</span> бит; <span class="formula">B = 1080/8 = 135</span> байт.</p>
+              <p><em>Ответ:</em> 135 B.</p>
+            </li>
+            <li>
+              <p><strong>Максимальный размер алфавита по длине кода</strong></p>
+              <p><em>Условие:</em> символ кодируется 7 битами. Сколько символов максимум?</p>
+              <p><em>Решение:</em> <span class="formula">N ≤ 2<sup>7</sup> = 128</span>.</p>
+              <p><em>Ответ:</em> 128.</p>
+            </li>
+            <li>
+              <p><strong>Обратная задача на объём текста</strong></p>
+              <p><em>Условие:</em> сообщение «весит» 90 байт, код 6 бит/символ. Сколько символов?</p>
+              <p><em>Решение:</em> <span class="formula">I = 90 × 8 = 720</span> бит; <span class="formula">k = 720/6 = 120</span> символов.</p>
+              <p><em>Ответ:</em> 120.</p>
+            </li>
+            <li>
+              <p><strong>Изображение, 16 бит/пикс</strong></p>
+              <p><em>Условие:</em> 800×600, 16 бит/пикс. Найти размер в KiB и MB.</p>
+              <p><em>Решение:</em> <span class="formula">I = 800 × 600 × 16 = 7 680 000</span> бит; <span class="formula">B = 960 000</span> B; <span class="formula">KiB ≈ 937.5</span>; <span class="formula">MB = 0.96</span>.</p>
+              <p><em>Ответ:</em> ≈ 937.5 KiB ≈ 0.96 MB.</p>
+            </li>
+            <li>
+              <p><strong>Передача данных по каналу</strong></p>
+              <p><em>Условие:</em> файл 1.5 MiB передаётся по каналу 256 кбит/с. Сколько секунд?</p>
+              <p><em>Решение:</em> <span class="formula">1.5 MiB = 1 572 864</span> B; в битах <span class="formula">12 582 912</span>; время <span class="formula">t = 12 582 912 / 256 000 ≈ 49.2</span> с.</p>
+              <p><em>Ответ:</em> ≈ 49.2 с.</p>
+            </li>
+          </ol>
+        </section>
+
+        <section id="quiz" class="card">
+          <h2>Мини‑викторина (быстрая проверка)</h2>
+          <ul>
+            <li>1 байт — это сколько бит? → <strong>8</strong>.</li>
+            <li>Что больше: 1 MB или 1 MiB? → <strong>1 MiB</strong> (≈1.048 MB).</li>
+            <li>Для <span class="formula">N = 32</span>, <span class="formula">m = ⌈log<sub>2</sub> N⌉</span> равно? → <strong>5 бит</strong>.</li>
+            <li>При фиксированном коде 8 бит/символ, 2048 символов — это сколько байт? → <strong>2048 B = 2 KiB</strong>.</li>
+            <li>Что даёт формула <span class="formula">I = k × log<sub>2</sub> N</span>? → <strong>Объём (бит) для равновероятных символов</strong>.</li>
+          </ul>
+        </section>
+
+        <section id="summary" class="card">
+          <h2>Конспект (коротко)</h2>
+          <ul>
+            <li><strong>Бит/байт</strong>: <span class="formula">1 B = 8 b</span>.</li>
+            <li><strong>SI</strong>: 1 kB = 10<sup>3</sup> B, 1 MB = 10<sup>6</sup> B, 1 GB = 10<sup>9</sup> B. <br /><strong>IEC</strong>: 1 KiB = 2<sup>10</sup> B, 1 MiB = 2<sup>20</sup> B, 1 GiB = 2<sup>30</sup> B.</li>
+            <li><strong>Кодирование</strong>: минимум бит на символ <span class="formula">m = ⌈log<sub>2</sub> N⌉</span>; вес символа <span class="formula">i = log<sub>2</sub> N</span> (равновероятные).</li>
+            <li><strong>Объём сообщения</strong>: <span class="formula">I = k × i</span> (бит), на практике часто <span class="formula">I ≈ k × m</span>.</li>
+            <li><strong>Переводы</strong>: <span class="formula">B = I/8</span>; <span class="formula">kB = B/1000</span>; <span class="formula">KiB = B/1024</span>.</li>
+            <li><strong>Изображения без сжатия</strong>: <span class="formula">I = ширина × высота × глубина<sub>цвета</sub></span> (бит/пикс).</li>
+          </ul>
+        </section>
+
+        <section id="homework" class="card">
+          <h2>Домашнее задание (с ответами для самопроверки)</h2>
+          <ol>
+            <li>
+              <p><strong>Задача A</strong>: текст длиной 1200 символов. Алфавит: 70 символов. Найти объём в байтах.</p>
+              <p class="note">Подсказка: <span class="formula">m = ⌈log<sub>2</sub> 70⌉ = 7</span>; <span class="formula">I = 1200 × 7 = 8400</span> бит; <span class="formula">B = 1050</span>.</p>
+              <p><em>Ответ:</em> <strong>1050 B</strong>.</p>
+            </li>
+            <li>
+              <p><strong>Задача B</strong>: аудио, 1 канал, 8 кГц, 8 бит/сэмпл, длительность 30 с. Размер в KiB.</p>
+              <p><em>Решение:</em> <span class="formula">I = 8000 × 8 × 30 = 1 920 000</span> бит; <span class="formula">B = 240 000</span> B; <span class="formula">KiB ≈ 234.4</span>.</p>
+              <p><em>Ответ:</em> <strong>≈ 234.4 KiB</strong>.</p>
+            </li>
+            <li>
+              <p><strong>Задача C</strong>: устройство использует коды длиной 5 бит. Сколько разных команд поддерживает?</p>
+              <p><em>Ответ:</em> <strong>2<sup>5</sup> = 32</strong>.</p>
+            </li>
+          </ol>
+        </section>
+
+        <section id="visuals" class="card">
+          <h2>Визуальные подсказки для монтажа</h2>
+          <ul>
+            <li><strong>Таблица SI vs IEC</strong> с цветовой подсветкой различий.</li>
+            <li><strong>Схема</strong> «алфавит → log<sub>2</sub> N → биты на символ».</li>
+            <li><strong>Калькулятор логарифмов</strong> с округлением вверх.</li>
+            <li><strong>Плашки‑итоги</strong> конвертаций (бит → байт → KiB/MB).</li>
+          </ul>
+        </section>
+      </main>
+
+      <footer>
+        Подготовлено для урока «Информационный объём сообщения» · Печать: Ctrl/Cmd + P
+      </footer>
+    </div>
+    <script>
+      (function() {
+        var THEME_KEY = 'lesson_theme';
+        var root = document.documentElement;
+        var themeToggle = null;
+        var printBtn = null;
+
+        function applyTheme(theme) {
+          root.setAttribute('data-theme', theme);
+          if (themeToggle) {
+            var isLight = theme === 'light';
+            themeToggle.textContent = isLight ? 'Тёмная тема' : 'Светлая тема';
+            themeToggle.setAttribute('aria-pressed', String(isLight));
+            themeToggle.title = isLight ? 'Переключить на тёмную тему' : 'Переключить на светлую тему';
+          }
+          try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
+        }
+
+        function initTheme() {
+          var stored = null;
+          try { stored = localStorage.getItem(THEME_KEY); } catch (e) {}
+          var prefersLight = false;
+          try { prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches; } catch (e) {}
+          var theme = stored || (prefersLight ? 'light' : 'dark');
+          applyTheme(theme);
+        }
+
+        function toggleTheme() {
+          var current = root.getAttribute('data-theme') || 'dark';
+          var next = current === 'light' ? 'dark' : 'light';
+          applyTheme(next);
+        }
+
+        function init() {
+          themeToggle = document.getElementById('themeToggle');
+          printBtn = document.getElementById('printBtn');
+          initTheme();
+          if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+          if (printBtn) printBtn.addEventListener('click', function() { window.print(); });
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+          init();
+        }
+      })();
+    </script>
+  </body>
+  </html>
+
+

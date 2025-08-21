@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Измерение информации: алфавитный подход, информационный вес символа, кодировки</title>
+    <meta name="description" content="Сценарий видеоурока (7–11 минут), конспект, задачи и практическая работа: алфавитный подход, логарифмическая мера, информационный вес символа, кодировки ASCII/Windows-1251/UTF-8, практика в текстовом процессоре." />
+    <style>
+      :root {
+        --bg: #0f172a;
+        --panel: #111827;
+        --muted: #9ca3af;
+        --text: #e5e7eb;
+        --accent: #60a5fa;
+        --accent-2: #34d399;
+        --danger: #f87171;
+        --card: #111827;
+        --card-border: #1f2937;
+        --code-bg: #0b1220;
+        --kbd-bg: #0b1220;
+      }
+
+      [data-theme="light"] {
+        --bg: #f8fafc;
+        --panel: #ffffff;
+        --muted: #475569;
+        --text: #0f172a;
+        --accent: #2563eb;
+        --accent-2: #059669;
+        --danger: #dc2626;
+        --card: #ffffff;
+        --card-border: #e5e7eb;
+        --code-bg: #f1f5f9;
+        --kbd-bg: #e2e8f0;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { height: 100%; }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        background: radial-gradient(1200px 800px at 10% -10%, rgba(96,165,250,.08), transparent 60%),
+                    radial-gradient(1000px 600px at 110% 10%, rgba(52,211,153,.08), transparent 60%),
+                    var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        color-scheme: dark;
+      }
+      [data-theme="light"] body {
+        background: radial-gradient(1200px 800px at 10% -10%, rgba(37,99,235,.07), transparent 60%),
+                    radial-gradient(1000px 600px at 110% 10%, rgba(5,150,105,.07), transparent 60%),
+                    var(--bg);
+        color-scheme: light;
+      }
+
+      .container { width: 100%; max-width: 1000px; margin: 0 auto; padding: 24px; }
+      header.hero { display: grid; gap: 12px; margin-bottom: 20px; }
+      .badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; background: rgba(96,165,250,.12); color: var(--accent); border: 1px solid rgba(96,165,250,.3); border-radius: 999px; font-size: 12px; letter-spacing: .02em; }
+      h1 { margin: 0; font-size: 32px; line-height: 1.2; letter-spacing: .2px; }
+      .subtitle { color: var(--muted); max-width: 70ch; margin: 0; }
+
+      .toolbar { display: flex; gap: 10px; justify-content: flex-end; align-items: center; margin: 6px 0 12px; }
+      .btn { appearance: none; border: 1px solid var(--card-border); background: rgba(255,255,255,.04); color: var(--text); padding: 8px 12px; border-radius: 10px; cursor: pointer; font: inherit; transition: transform .12s ease, background .2s ease, border-color .2s ease, color .2s ease; }
+      .btn:hover { transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(96,165,250,.35); }
+      .btn-primary { border-color: rgba(96,165,250,.45); color: var(--accent); }
+      .btn-ghost { background: transparent; }
+
+      nav.toc { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin: 20px 0 28px; }
+      .toc a { display: block; padding: 10px 12px; background: rgba(255,255,255,.02); border: 1px solid var(--card-border); border-radius: 10px; color: var(--text); text-decoration: none; transition: transform .12s ease, background .2s ease, border-color .2s ease; }
+      .toc a:hover { transform: translateY(-1px); background: rgba(255,255,255,.04); border-color: rgba(96,165,250,.3); }
+
+      .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+      @media (min-width: 900px) { .grid.two { grid-template-columns: 1.2fr .8fr; } }
+
+      section { scroll-margin-top: 80px; }
+      .card { background: var(--card); border: 1px solid var(--card-border); border-radius: 14px; padding: 18px; }
+      h2, h3 { margin: 0 0 10px; }
+      h2 { font-size: 22px; border-left: 4px solid var(--accent); padding-left: 10px; }
+      h3 { font-size: 16px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+      ul { margin: 10px 0 0; padding-left: 20px; } li { margin: 6px 0; }
+      .timeline li { margin: 8px 0; }
+      .pill { display: inline-block; padding: 2px 8px; margin-right: 6px; border-radius: 999px; font-size: 12px; background: rgba(52,211,153,.12); color: var(--accent-2); border: 1px solid rgba(52,211,153,.35); }
+      .note { padding: 10px 12px; background: rgba(96,165,250,.08); border: 1px dashed rgba(96,165,250,.35); border-radius: 10px; color: var(--text); font-size: 14px; }
+      .formula, code, kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; background: var(--code-bg); border: 1px solid #0f203a; border-radius: 8px; padding: 2px 6px; font-size: 14px; color: #c7d2fe; }
+      .examples-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+      .tag { color: var(--muted); font-size: 13px; }
+      footer { margin: 24px 0 8px; color: var(--muted); font-size: 12px; text-align: center; }
+
+      @media print {
+        body { background: #ffffff; color: #000; }
+        .badge, .toc, .toolbar { display: none; }
+        .card { border-color: #ddd; }
+        .formula, code, kbd { background: #f7f7f7; color: #111; border-color: #eee; }
+        h2 { border-left-color: #444; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="hero">
+        <span class="badge">Сценарий видео 7–11 минут</span>
+        <h1>Измерение информации. Алфавитный подход. Вес символа. Кодировки</h1>
+        <p class="subtitle">Логарифмическая мера информации, алфавитный подход, информационный вес символа, сравнение кодировок и практическая работа в текстовом процессоре.</p>
+      </header>
+
+      <div class="toolbar" role="toolbar" aria-label="Быстрые действия">
+        <button id="themeToggle" class="btn btn-primary" type="button" aria-pressed="false" aria-label="Переключить тему">Светлая тема</button>
+        <button id="printBtn" class="btn btn-ghost" type="button" aria-label="Печать">Печать</button>
+      </div>
+
+      <nav class="toc card" aria-label="Содержание">
+        <a href="#goals">Цели</a>
+        <a href="#script">Сценарий</a>
+        <a href="#examples">Быстрые примеры</a>
+        <a href="#tasks">Задачи с решениями</a>
+        <a href="#practice">Практическая работа</a>
+        <a href="#quiz">Мини‑викторина</a>
+        <a href="#summary">Конспект</a>
+        <a href="#homework">Домашнее задание</a>
+      </nav>
+
+      <main class="grid two">
+        <section id="goals" class="card">
+          <h2>Цели урока</h2>
+          <ul>
+            <li>Понимать алфавитный подход: <span class="formula">m = ⌈log<sub>2</sub> N⌉</span>, <span class="formula">i = log<sub>2</sub> N</span>.</li>
+            <li>Вычислять объём сообщений и информационный вес символа.</li>
+            <li>Различать кодировки ASCII/Windows‑1251/UTF‑8 и понимать их отличия.</li>
+            <li>На практике определять код символа в разных кодировках.</li>
+          </ul>
+        </section>
+
+        <section id="script" class="card">
+          <h2>Сценарий видео (7–11 минут)</h2>
+          <ul class="timeline">
+            <li>
+              <span class="pill">0:00–1:30</span>
+              Алфавитный подход и логарифмическая мера: <span class="formula">i=log<sub>2</sub>N</span>; <span class="formula">m=⌈log<sub>2</sub>N⌉</span>; связь с битами.
+            </li>
+            <li>
+              <span class="pill">1:30–3:30</span>
+              Объём сообщения: <span class="formula">I = k × i</span> (бит) и практическое <span class="formula">I≈k×m</span>.
+            </li>
+            <li>
+              <span class="pill">3:30–5:30</span>
+              Кодировки: ASCII (7/8 бит), Windows‑1251 (однобайтная кириллица), UTF‑8 (переменная длина, совместима с ASCII).
+            </li>
+            <li>
+              <span class="pill">5:30–7:30</span>
+              Как один и тот же текст «весит» по‑разному в разных кодировках; байты и отображение.
+            </li>
+          </ul>
+        </section>
+
+        <section id="examples" class="card">
+          <h2>Быстрые примеры</h2>
+          <div class="examples-grid">
+            <div class="card">
+              <h3>Пример 1: Алфавит</h3>
+              <div class="tag">N=70 → m=7</div>
+              <p>Текст 1200 символов: <span class="formula">I=1200×7=8400</span> бит = 1050 B.</p>
+            </div>
+            <div class="card">
+              <h3>Пример 2: Кодировки</h3>
+              <div class="tag">Слово «Привет»</div>
+              <p>ASCII: недоступно для кириллицы; Windows‑1251: 6 байт; UTF‑8: 12 байт (по 2 байта на букву кириллицы).</p>
+            </div>
+            <div class="card">
+              <h3>Пример 3: Вес символа</h3>
+              <div class="tag">Равновероятный алфавит N</div>
+              <p><span class="formula">i=log<sub>2</sub>N</span> бит/символ; для N=32 → 5 бит.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="tasks" class="card">
+          <h2>Закрепление: задачи с подробными решениями</h2>
+          <ol>
+            <li>
+              <p><strong>Объём текста по алфавиту</strong></p>
+              <p><em>Условие:</em> алфавит 50 символов, текст 500 символов. Найти объём в байтах.</p>
+              <p><em>Решение:</em> <span class="formula">m=⌈log<sub>2</sub>50⌉=6</span>; <span class="formula">I=500×6=3000</span> бит = 375 B.</p>
+              <p><em>Ответ:</em> 375 B.</p>
+            </li>
+            <li>
+              <p><strong>Вес символа (Хартли)</strong></p>
+              <p><em>Условие:</em> алфавит 32 символа, символы равновероятны. Найти i.</p>
+              <p><em>Решение:</em> <span class="formula">i=log<sub>2</sub>32=5</span> бит/символ.</p>
+            </li>
+            <li>
+              <p><strong>Сравнение кодировок</strong></p>
+              <p><em>Условие:</em> строка «Test» и «Тест». Сравнить объём в Windows‑1251 и UTF‑8.</p>
+              <p><em>Решение:</em> «Test»: 4 B в обеих; «Тест»: Windows‑1251 — 4 B; UTF‑8 — 8 B (каждая кириллическая буква — 2 байта).</p>
+            </li>
+            <li>
+              <p><strong>Идентификатор символа</strong></p>
+              <p><em>Условие:</em> определить код точки «.» в ASCII, и код «Я» в Windows‑1251 и UTF‑8.</p>
+              <p><em>Решение:</em> «.»: 46 (0x2E, ASCII). «Я»: 0xDF (223) в Windows‑1251; UTF‑8: <code>D0 AF</code>.</p>
+            </li>
+          </ol>
+        </section>
+
+        <section id="practice" class="card">
+          <h2>Практическая работа: определение кода символа в разных кодировках</h2>
+          <ol>
+            <li>Откройте текстовый процессор (например, LibreOffice Writer) или редактор кода.</li>
+            <li>Вставьте фразу: «Привет, мир! Test.»</li>
+            <li>Сохраните файл как <em>Windows‑1251</em>. Затем как <em>UTF‑8</em>.</li>
+            <li>Откройте каждый файл в редакторе в шестнадцатеричном режиме (или командой <kbd>xxd</kbd> в терминале).</li>
+            <li>Сравните байты для символов «П», «я», «T», «.» в двух вариантах.</li>
+            <li>Зафиксируйте: 
+              <ul>
+                <li>Windows‑1251: «П»=0xCF, «я»=0xFF; «T»=0x54; «.»=0x2E.</li>
+                <li>UTF‑8: «П»=<code>D0 9F</code>, «я»=<code>D1 8F</code>; «T»=<code>54</code>; «.»=<code>2E</code>.</li>
+              </ul>
+            </li>
+          </ol>
+          <p class="note">В UTF‑8 ASCII‑символы кодируются одним байтом и совпадают по значению с ASCII. Кириллица занимает 2 байта.</p>
+        </section>
+
+        <section id="quiz" class="card">
+          <h2>Мини‑викторина</h2>
+          <ul>
+            <li>Что такое <span class="formula">m</span>? → Минимальное целое число бит на символ.</li>
+            <li>В чём разница Windows‑1251 и UTF‑8? → Однобайтная локальная vs универсальная переменной длины.</li>
+            <li>Код «A» в ASCII? → 65 (0x41).</li>
+            <li>Почему «Тест» больше в UTF‑8? → Кириллица кодируется двумя байтами.</li>
+          </ul>
+        </section>
+
+        <section id="summary" class="card">
+          <h2>Конспект (коротко)</h2>
+          <ul>
+            <li><strong>Алфавитный подход</strong>: <span class="formula">m = ⌈log<sub>2</sub> N⌉</span>, <span class="formula">i = log<sub>2</sub> N</span>.</li>
+            <li><strong>Объём</strong>: <span class="formula">I = k × i</span> (бит), на практике <span class="formula">I ≈ k × m</span>.</li>
+            <li><strong>Кодировки</strong>: ASCII (базовый латиница), Windows‑1251 (кириллица 1 байт), UTF‑8 (универсальная, переменная длина).</li>
+            <li><strong>Сопоставление байтов</strong>: ASCII символы совпадают в UTF‑8, кириллица — 2 байта.</li>
+          </ul>
+        </section>
+
+        <section id="homework" class="card">
+          <h2>Домашнее задание (самопроверка)</h2>
+          <ol>
+            <li>
+              <p><strong>Задача A</strong>: алфавит 70 символов, текст 1000 символов. Найти объём в байтах.</p>
+              <p><em>Ответ:</em> m=7; I=7000 бит; 875 B.</p>
+            </li>
+            <li>
+              <p><strong>Задача B</strong>: Сравнить объём строки «Hello, мир!» в Windows‑1251 и UTF‑8.</p>
+              <p><em>Подсказка:</em> латиница — 1 байт в обоих; кириллица — 1 байт (1251) и 2 байта (UTF‑8).</p>
+            </li>
+            <li>
+              <p><strong>Задача C</strong>: Найти <span class="formula">i</span> для алфавита 128 символов.</p>
+              <p><em>Ответ:</em> <span class="formula">i = 7</span> бит.</p>
+            </li>
+          </ol>
+        </section>
+      </main>
+
+      <footer>
+        Подготовлено для урока «Алфавитный подход и кодировки» · Печать: Ctrl/Cmd + P
+      </footer>
+    </div>
+    <script>
+      (function() {
+        var THEME_KEY = 'lesson_theme';
+        var root = document.documentElement;
+        var themeToggle = null;
+        var printBtn = null;
+
+        function applyTheme(theme) {
+          root.setAttribute('data-theme', theme);
+          if (themeToggle) {
+            var isLight = theme === 'light';
+            themeToggle.textContent = isLight ? 'Тёмная тема' : 'Светлая тема';
+            themeToggle.setAttribute('aria-pressed', String(isLight));
+            themeToggle.title = isLight ? 'Переключить на тёмную тему' : 'Переключить на светлую тему';
+          }
+          try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
+        }
+
+        function initTheme() {
+          var stored = null;
+          try { stored = localStorage.getItem(THEME_KEY); } catch (e) {}
+          var prefersLight = false;
+          try { prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches; } catch (e) {}
+          var theme = stored || (prefersLight ? 'light' : 'dark');
+          applyTheme(theme);
+        }
+
+        function toggleTheme() {
+          var current = root.getAttribute('data-theme') || 'dark';
+          var next = current === 'light' ? 'dark' : 'light';
+          applyTheme(next);
+        }
+
+        function init() {
+          themeToggle = document.getElementById('themeToggle');
+          printBtn = document.getElementById('printBtn');
+          initTheme();
+          if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+          if (printBtn) printBtn.addEventListener('click', function() { window.print(); });
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+          init();
+        }
+      })();
+    </script>
+  </body>
+  </html>
+
+
