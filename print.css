@@ -1,0 +1,89 @@
+@page {
+  size: A4;
+  margin: 18mm 14mm;
+}
+
+/* Базовая типографика для печати */
+html, body {
+  background: #ffffff !important;
+  color: #111111 !important;
+}
+
+body {
+  font-family: "Liberation Serif", Georgia, Cambria, "Times New Roman", Times, serif !important;
+  font-size: 11pt !important;
+  line-height: 1.5 !important;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+.container {
+  max-width: none !important;
+  padding: 0 !important;
+}
+
+/* Прячем элементы интерфейса */
+.badge, .toolbar, nav.toc {
+  display: none !important;
+}
+
+/* Карточки и блоки — без фона/границ, избегать разрывов */
+.card {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 0 10pt 0 !important;
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+}
+
+h1 {
+  font-size: 20pt !important;
+  line-height: 1.25 !important;
+  margin: 0 0 8pt 0 !important;
+}
+
+h2 {
+  font-size: 14pt !important;
+  line-height: 1.3 !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 12pt 0 6pt 0 !important;
+  break-before: avoid-page !important;
+}
+
+h3 {
+  font-size: 11pt !important;
+  color: #111111 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+}
+
+ul, ol {
+  margin: 6pt 0 8pt 0 !important;
+  padding-left: 16pt !important;
+}
+
+li { margin: 4pt 0 !important; }
+
+/* Код и формулы без затемнённого фона */
+.formula, code, kbd {
+  background: transparent !important;
+  border: none !important;
+  color: #111111 !important;
+  padding: 0 !important;
+}
+
+/* Ссылки как обычный текст */
+a { color: inherit !important; text-decoration: none !important; }
+
+/* Сетки разворачиваем в одну колонку */
+.grid, .examples-grid {
+  display: block !important;
+}
+
+/* Мелкое визуальное */
+.pill, .note, .tag { border: none !important; background: transparent !important; color: #111111 !important; }
+
+
