@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Уроки информатики — конспекты и сценарии</title>
+    <link rel="stylesheet" href="print.css" media="print" />
+    <style>
+      :root { --bg:#0f172a; --text:#e5e7eb; --muted:#9ca3af; --card:#111827; --card-border:#1f2937; --accent:#60a5fa; }
+      [data-theme="light"] { --bg:#f8fafc; --text:#0f172a; --muted:#475569; --card:#ffffff; --card-border:#e5e7eb; --accent:#2563eb; }
+      *{box-sizing:border-box}
+      body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica Neue,Arial;background:var(--bg);color:var(--text);line-height:1.6}
+      .container{max-width:900px;margin:0 auto;padding:24px}
+      header{display:grid;gap:8px;margin-bottom:16px}
+      h1{margin:0;font-size:28px}
+      .subtitle{color:var(--muted);margin:0}
+      .toolbar{display:flex;gap:10px;justify-content:flex-end;margin:6px 0 12px}
+      .btn{appearance:none;border:1px solid var(--card-border);background:transparent;color:var(--text);padding:8px 12px;border-radius:10px;cursor:pointer}
+      .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+      .card{background:var(--card);border:1px solid var(--card-border);border-radius:12px;padding:14px}
+      a.item{display:block;color:var(--text);text-decoration:none}
+      a.item h3{margin:0 0 6px 0}
+      a.item p{margin:0;color:var(--muted);font-size:14px}
+      footer{margin:20px 0 8px;color:var(--muted);font-size:12px;text-align:center}
+      @media print {.toolbar{display:none}.card{border:none;background:transparent}}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Уроки информатики — конспекты и сценарии</h1>
+        <p class="subtitle">Откройте урок, распечатайте конспект или используйте PDF.</p>
+      </header>
+      <div class="toolbar" role="toolbar">
+        <button id="themeToggle" class="btn" type="button">Светлая тема</button>
+      </div>
+      <main class="grid">
+        <a class="item card" href="Информационный_объём_сообщения_единицы_измерения.html">
+          <h3>Информационный объём сообщения</h3>
+          <p>Единицы измерения информации, перевод, задачи.</p>
+        </a>
+        <a class="item card" href="Кодирование_и_декодирование_текстов_равномерные_и_неравномерные_коды.html">
+          <h3>Кодирование текстов</h3>
+          <p>Равномерные/неравномерные коды, префиксность, Хаффман.</p>
+        </a>
+        <a class="item card" href="Измерение_информации_алфавитный_подход_информационный_вес_символа_кодировки_ПР.html">
+          <h3>Алфавитный подход и кодировки</h3>
+          <p>Вес символа, ASCII/Windows‑1251/UTF‑8, практическая работа.</p>
+        </a>
+      </main>
+      <footer>© Уроки информатики — GitHub Pages</footer>
+    </div>
+    <script>
+      (function(){
+        var root=document.documentElement;var key='lesson_theme';var btn=document.getElementById('themeToggle');
+        function apply(t){root.setAttribute('data-theme',t);if(btn){btn.textContent=t==='light'?'Тёмная тема':'Светлая тема';}}
+        var stored=null;try{stored=localStorage.getItem(key);}catch(e){}
+        var prefersLight=false;try{prefersLight=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches;}catch(e){}
+        apply(stored|| (prefersLight?'light':'dark'));
+        if(btn)btn.addEventListener('click',function(){var cur=root.getAttribute('data-theme')||'dark';var next=cur==='light'?'dark':'light';apply(next);try{localStorage.setItem(key,next);}catch(e){}});
+      })();
+    </script>
+  </body>
+</html>
